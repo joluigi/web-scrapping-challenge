@@ -24,21 +24,29 @@ def mars_scraping():
 
     title_list = []
     art_list = []
+    lat_new_dict = []
+    i = 0
 
     title = soup.find_all('div', class_='content_title')
     article = soup.find_all('div', class_='article_teaser_body')
-
+    
+    print('------Article Extraction start-----')
     for titl, art in zip(title, article):
+        i+=1
         print(f'Title: {titl.text}')
         print(f'Article extract: {art.text}')
         print('----------------------------------')
         title_list.append(titl.text)
         art_list.append(art.text)
+        lat_new_dict.append({'title '+str(i):titl.text, 'art '+str(i):art.text})
+    print('-----Article Extraction ended-------')
 
     # 2. Featured Img URL
     # Visiting URL
+    print('Visiting SpaceImages url: Started')
     space_img_url = "https://spaceimages-mars.com/"
     browser.visit(space_img_url)
+    print('Visiting SpaceImages url: Ended')
 
     # Scraping the image from the URL
 
@@ -48,31 +56,40 @@ def mars_scraping():
     header_img = soup_img.find('img', class_="headerimage")['src']
 
     featured_image_url = space_img_url+header_img
-
+    print('-------Featured image process started-------')
     print(featured_image_url)
+    print('-------Featured image process ended-------')
 
     # 3. Mars fact table Extraction
     # Visiting URL
-
+    print('Visiting facts url: Started')
     facts_url = "https://galaxyfacts-mars.com/"
     browser.visit(facts_url)
-
+    print('Visiting facts url: Ended')
+    
+    print('------Table Extraction started-------')
     # Extracting the tables
     data_tables = pd.read_html(facts_url)
-    data_tables[1]
+    table_list = data_tables[0].set_index(0).drop('Mars - Earth Comparison')
+    final_table = table_list.rename(columns={1:'Mars', 2:'Earth' })\
+                    .to_dict('index')
+    print(final_table)
+    print('------Table Extraction ended-------')
 
     # 4. Mars Hemisphere image extraction 
 
     # Visiting the URL
+    print('Visiting hemispheres url: Started')
     mult_img_url = ("https://marshemispheres.com/")
     browser.visit(mult_img_url)
+    print('Visiting hemispheres url: Completed')
 
-
+    print('------Hemisphere Extraction started-------')
     # Scraping the site for Hemisphere images
     mult_img_html = browser.html
     soup = bs(mult_img_html, 'html.parser')
 
-    art_list = soup.find_all('a', class_='itemLink product-item')
+    #art_list = soup.find_all('a', class_='itemLink product-item')
     h3_list = soup.find_all('h3')
     mars_img_list = []
 
@@ -86,25 +103,25 @@ def mars_scraping():
             page_soup = bs(crrnt_page, 'html.parser')
             img_download = page_soup.find_all('div', class_='downloads')
             img_href = img_download[0].a['href']
-            print(h3.text)
             mars_img_list.append({'title '+str(n):h3.text, 'img url '+str(n):mult_img_url+img_href})
-            print('------------------')
             browser.visit(mult_img_url)
 
         except:
             browser.visit(mult_img_url)
             print("Scraping finished going back to first page") 
             break
+    print(mars_img_list)
+    print('------Hemisphere Extraction started-------')
+
     mars_tot_data ={
 
-        'lat_news': {'title':title_list, 'article':art_list},
+        'lat_news': lat_new_dict,
         'feat_image':featured_image_url,
-        'mars_tables': data_tables,
+        'mars_tables': final_table,
         'hem_list': mars_img_list
     }
 
+    print(mars_tot_data)
+
     browser.quit()
-
-    print(mars_img_list)
-
     return mars_tot_data

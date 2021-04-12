@@ -14,8 +14,10 @@ mongo.db.mars_data.drop()
 @app.route("/")
 def indexroute():
     ft_img = mongo.db.mars_data.find_one()
+    #latest_news = mongo.db.mars_data.find({})
     # ft_img = "https://spaceimages-mars.com/image/featured/mars2.jpg"
     output = render_template("index.html", fimage=ft_img)
+    print(ft_img)
     return output
 
 @app.route("/scrape")
