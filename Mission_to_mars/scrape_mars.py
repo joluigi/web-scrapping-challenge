@@ -38,7 +38,7 @@ def mars_scraping():
         print('----------------------------------')
         title_list.append(titl.text)
         art_list.append(art.text)
-        lat_new_dict.append({'title '+str(i):titl.text, 'art '+str(i):art.text})
+        lat_new_dict.append([{'title':titl.text},{'art':art.text}])
     print('-----Article Extraction ended-------')
 
     # 2. Featured Img URL
@@ -103,7 +103,7 @@ def mars_scraping():
             page_soup = bs(crrnt_page, 'html.parser')
             img_download = page_soup.find_all('div', class_='downloads')
             img_href = img_download[0].a['href']
-            mars_img_list.append({'title '+str(n):h3.text, 'img url '+str(n):mult_img_url+img_href})
+            mars_img_list.append([{'title':h3.text},{'img_link':mult_img_url+img_href}])
             browser.visit(mult_img_url)
 
         except:

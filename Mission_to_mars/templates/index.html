@@ -19,17 +19,17 @@
         <div class ="container">
             <div class="row" id=>
                 <div class="col-md-12" >
-                    <h2>Latest Mars News</h2>
+                    <h2>Latest mars news</h2>
                 </div>
             </div>
             <div class="row" id=>
                 <div class="col-md-12" >
-                    <h3>Latest Mars News</h3>
+                    <h3>{{fimage.lat_news[0][0].title}}</h3>
                 </div>
             </div>
             <div class="row" id=>
                 <div class="col-md-12" >
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                    <p>{{fimage.lat_news[0][1].art}}</p>
                 </div>
             </div>
         </div>
@@ -58,35 +58,27 @@
         </div>
         <div class="card-group">
             <div class="card">
-                <img src="fullmars.jpg" alt="Mars">
+                <img src="{{fimage.hem_list[0][1].img_link}}" alt="Mars">
                 <div class="card-body">
-                    <h5 class="card-title">Card Title </h5> 
-                    <p class="card-text">Text as a placeholder for this card</p>
-                    <p class="card-text">Text as a placeholder for this card</p>
+                    <h5 class="card-title">{{fimage.hem_list[0][0].title}}</h5>
                 </div>
             </div>
             <div class="card">
-                <img src="fullmars.jpg" alt="Mars">
+                <img src="{{fimage.hem_list[1][1].img_link}}" alt="Mars">
                 <div class="card-body">
-                    <h5 class="card-title">Card Title </h5> 
-                    <p class="card-text">Text as a placeholder for this card</p>
-                    <p class="card-text">Text as a placeholder for this card</p>
+                    <h5 class="card-title">{{fimage.hem_list[1][0].title}}</h5> 
                 </div>
             </div>
             <div class="card">
-                <img src="fullmars.jpg" alt="Mars">
+                <img src="{{fimage.hem_list[2][1].img_link}}" alt="Mars">
                 <div class="card-body">
-                    <h5 class="card-title">Card Title </h5> 
-                    <p class="card-text">Text as a placeholder for this card</p>
-                    <p class="card-text">Text as a placeholder for this card</p>
+                    <h5 class="card-title">{{fimage.hem_list[2][0].title}}</h5> 
                 </div>
             </div>
             <div class="card">
-                <img src="fullmars.jpg" alt="Mars">
+                <img src="{{fimage.hem_list[3][1].img_link}}" alt="Mars">
                 <div class="card-body">
-                    <h5 class="card-title">Card Title </h5> 
-                    <p class="card-text">Text as a placeholder for this card</p>
-                    <p class="card-text">Text as a placeholder for this card</p>
+                    <h5 class="card-title">{{fimage.hem_list[3][0].title}}</h5> 
                 </div>
             </div>
         </div>

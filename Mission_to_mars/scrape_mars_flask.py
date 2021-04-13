@@ -8,16 +8,16 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_db_scraping"
 mongo =PyMongo(app)
 #mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_scrp_db")
-mongo.db.mars_data.drop()
+#mongo.db.mars_data.drop()
 
 
 @app.route("/")
 def indexroute():
-    ft_img = mongo.db.mars_data.find_one()
+    src_data = mongo.db.mars_data.find_one()
     #latest_news = mongo.db.mars_data.find({})
     # ft_img = "https://spaceimages-mars.com/image/featured/mars2.jpg"
-    output = render_template("index.html", fimage=ft_img)
-    print(ft_img)
+    output = render_template("index.html", fimage=src_data)
+    print(src_data)
     return output
 
 @app.route("/scrape")
