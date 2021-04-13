@@ -73,6 +73,8 @@ def mars_scraping():
     table_list = data_tables[0].set_index(0).drop('Mars - Earth Comparison')
     final_table = table_list.rename(columns={1:'Mars', 2:'Earth' })\
                     .to_dict('index')
+    # Converting Table to HTML
+    html_table = pd.DataFrame.to_html(table_list.rename(columns={1:'Mars', 2:'Earth' }))
     print(final_table)
     print('------Table Extraction ended-------')
 
